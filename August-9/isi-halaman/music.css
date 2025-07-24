@@ -1,0 +1,112 @@
+body {
+  margin: 0;
+  overflow: hidden;
+  font-family: sans-serif;
+  background: linear-gradient(to bottom, #3fa9f5, #003d66); /* lautan */
+  height: 100vh;
+}
+
+/* Ghost container */
+.container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 1;
+}
+
+/* Ghost style */
+.ghost {
+  position: absolute;
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  animation: moveGhosts 20s linear infinite;
+  opacity: 0.2;
+}
+
+.ghost1 {
+  top: 20%;
+  animation-duration: 25s;
+}
+.ghost2 {
+  top: 40%;
+  animation-duration: 30s;
+}
+.ghost3 {
+  top: 60%;
+  animation-duration: 35s;
+}
+
+.ghost div {
+  width: 50px;
+  height: 50px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
+  animation: float 4s ease-in-out infinite alternate;
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0) scale(1);
+  }
+  100% {
+    transform: translateY(-20px) scale(1.2);
+  }
+}
+
+@keyframes moveGhosts {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(100%);
+  }
+}
+
+/* Lyrics style */
+.lyrics {
+  position: absolute;
+  z-index: 2;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.lyrics p {
+  font-size: 2em;
+  margin: 0.5em 0;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  color: white;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+}
+
+.lyrics p.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Responsif untuk layar kecil */
+@media (max-width: 600px) {
+  .lyrics p {
+    font-size: 1.3em;
+    padding: 0 10px;
+  }
+
+  .ghost div {
+    width: 30px;
+    height: 30px;
+  }
+
+  body {
+    background: linear-gradient(
+      to bottom,
+      #4fc3f7,
+      #002f4b
+    ); /* gradasi sedikit lebih cerah di hp */
+  }
+}

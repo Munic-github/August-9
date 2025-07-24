@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Music & Lyrics</title>
+    <link rel="stylesheet" href="music.css" />
+  </head>
+  <body>
+    <audio id="music" src="songs.mp3"></audio>
+
+    <!-- Ghost background effect -->
+    <div class="container">
+      <div class="ghost ghost1">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+      <div class="ghost ghost2">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+      <div class="ghost ghost3">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+    </div>
+    <!-- Lyrics animation -->
+    <div class="lyrics" id="lyrics">
+      <p data-time="1">Might not be long but,</p>
+      <p data-time="4">baby, I don't wanna say goodbye</p>
+      <p data-time="7">birds of a feather</p>
+      <p data-time="10">we should stick together, I know</p>
+      <p data-time="13">I said I'd never think</p>
+      <p data-time="16">I wasn't better alone</p>
+      <p data-time="19">can't change the weather</p>
+      <p data-time="22">might not be forever</p>
+      <p data-time="25">but if it's forever, it's even better</p>
+    </div>
+
+    <script>
+      const music = document.getElementById("music");
+      const lyrics = document.querySelectorAll("#lyrics p");
+
+      music.play();
+
+      music.addEventListener("timeupdate", () => {
+        const currentTime = music.currentTime;
+        lyrics.forEach((p) => {
+          const time = parseFloat(p.getAttribute("data-time"));
+          if (currentTime >= time && !p.classList.contains("show")) {
+            p.classList.add("show");
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Halaman Isi</title>
+    <link rel="stylesheet" href="isi.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1 class="judul">🌟 HAPPY BIRTHDAY 🌟</h1>
+      <p>Klik stiker 🎁</p>
+
+      <!-- Area Stiker -->
+      <div class="gif-wrapper" id="gifWrapper"></div>
+
+      <!-- Area Teks -->
+      <div id="teksContainer" class="teks-container">
+        <div id="typewriterText" class="typewriter-text"></div>
+      </div>
+
+      <!-- Peringatan -->
+      <p id="peringatan" class="peringatan">
+        Klik "My Voice" untuk mendengarkan...
+      </p>
+
+      <!-- Tombol Musik -->
+      <button id="playButton" class="btn-music">My Voice</button>
+      <audio id="myAudio" muted src="voice.mp3"></audio>
+
+      <!-- Tombol Halaman Selanjutnya -->
+      <button id="nextButton" class="btn-music" disabled>
+        <a href="music.html" class="wave-button">🎶</a>
+      </button>
+    </div>
+
+    <script>
+      const stikerList = [
+        {
+          src: "./sticker/pocoyo.gif",
+          pesan:
+            "Cieee yang ulang tahun, udah kepala dua nih 🎉, selamay ya Rima Erna Agustiningsih semoga keinginan tahun ini dan tahun - tahun yang akan mendatang tercapai dan semoga yang direncanakan apapun itu di beri kelancaran dan jika suatu saat plan nya gagal jangan sedih ya mungkin apa yang kita rencankanbelmu bagi kita itu baik belum tentu baik di mata sang pencipta pokoknya aku percaya kamu pasti bisa dan kuat  🐯🐯  ",
+        },
+        {
+          src: "./sticker/negando-pocoyo.gif",
+          pesan:
+            "Kurangi batunya Jo, kekean ngamok 😄. Jangan jadi orang yang gak enakan itu rak apik. Memang kadang sulit sih, tapi bukan berarti gak bisa. Kalau emang nggak suka, ngomong wae gpp. Meski pahit, fakta lebih baik diucapkan daripada malah bikin overthinking.",
+        },
+        {
+          src: "./sticker/hola-pocoyo.gif",
+          pesan:
+            "Alooo dan selamat ya atas pencapaian yang selama ini sudah diraih dengan penuh kerja keras 🤗, maaf ya ga bisa bantu cuman bisa ucapin selamat maaf selama ini merepotkan dan gak pernah bantu apa-apa, ya intinya di pertahanin yaa jujur aku ngerasa ketinggalan jauh maaf ya persaingan yang dibuat  pas MTs keknya kamu yang maju terus jujur sedih sih ngerasa tertinggal ya pokoknya maju terusss tunggu ya mungkin butuh waktu buat nyusul",
+        },
+        {
+          src: "./sticker/bailando-pocoyo.gif",
+          pesan:
+            "Tetap semangat! Maju terus, jangan patah semangat, jangan cengeng terus. Sekarang udah kepala dua, malu sama umur buk. Maaf ya cuma bisa kasih ini. Aku tahu aku keras kepala, batu, dan nggak pandai menyampaikan pesan, tapi aku masih terus belajar ;) .",
+        },
+      ];
+
+      const gifWrapper = document.getElementById("gifWrapper");
+      const teksContainer = document.getElementById("typewriterText");
+      const audio = document.getElementById("myAudio");
+      const playButton = document.getElementById("playButton");
+      const nextButton = document.getElementById("nextButton");
+      const peringatan = document.getElementById("peringatan");
+
+      // Tampilkan stiker satu per satu
+      let index = 0;
+      function tampilkanStiker() {
+        if (index >= stikerList.length) return;
+        const data = stikerList[index];
+        const img = document.createElement("img");
+        img.src = data.src;
+        img.className = "gif-stiker";
+        img.onclick = () => tampilkanTeks(data.pesan);
+        gifWrapper.appendChild(img);
+        index++;
+        setTimeout(tampilkanStiker, 1000);
+      }
+
+      function tampilkanTeks(teks) {
+        teksContainer.innerHTML = ""; // Kosongkan sebelum ngetik baru
+        let i = 0;
+        function ketik() {
+          if (i < teks.length) {
+            teksContainer.innerHTML += teks.charAt(i);
+            i++;
+            setTimeout(ketik, 40); // Kecepatan ngetik
+          }
+        }
+        ketik();
+      }
+
+      window.onload = () => {
+        tampilkanStiker();
+      };
+
+      playButton.addEventListener("click", () => {
+        audio.muted = false;
+        audio
+          .play()
+          .then(() => {
+            playButton.style.display = "none";
+            peringatan.innerText =
+              "🎧 Dengarkan voice sampai selesai, lalu tekan 🎶 untuk lanjut!";
+          })
+          .catch((err) => console.warn("Gagal memutar:", err));
+      });
+
+      audio.addEventListener("ended", () => {
+        nextButton.disabled = false;
+        peringatan.innerText =
+          "✅ Voice selesai! Sekarang kamu bisa klik 🎶 untuk lanjut.";
+      });
+    </script>
+  </body>
+</html>

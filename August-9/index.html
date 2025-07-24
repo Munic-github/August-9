@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ucapan Terima Kasih</title>
+    <link rel="stylesheet" href="animasi.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="wave-container">
+        <div class="wave-text">
+          <span class="animated-text">🎉L</span>
+          <span class="animated-text">E</span>
+          <span class="animated-text">T</span>
+          <span class="animated-text">'S</span>
+          <span class="animated-text">G</span>
+          <span class="animated-text">E</span>
+          <span class="animated-text">T</span>
+          <span class="animated-text">S</span>
+          <span class="animated-text">T</span>
+          <span class="animated-text">A</span>
+          <span class="animated-text">R</span>
+          <span class="animated-text">T</span>
+          <span class="animated-text">E</span>
+          <span class="animated-text">D🎉</span>
+        </div>
+      </div>
+
+      <!-- STIKER GIF -->
+      <div class="gif-container">
+        <img src="pocoyo-dance.gif" alt="Stiker Lucu" class="gif" />
+      </div>
+
+      <!-- TOMBOL JAHIL -->
+      <button class="jahil-button" onclick="pindahTombol(this)">>,,<</button>
+
+      <!-- PESAN KHUSUS -->
+      <div id="pesan-container" class="pesan-khusus"></div>
+    </div>
+
+    <!-- AUDIO MUSIK (OTOMATIS) -->
+    <audio id="background-audio" autoplay loop>
+      <source src="song.mp3" type="audio/mpeg" />
+      Browser kamu tidak mendukung audio.
+    </audio>
+
+    <script>
+      let clickCount = 0;
+
+      window.onload = () => {
+        const btn = document.querySelector(".jahil-button");
+        const audio = document.getElementById("background-audio");
+
+        btn.style.left = "100px";
+        btn.style.top = "500px";
+
+        audio.volume = 0.5;
+        audio.play();
+
+        setTimeout(() => {
+          audio.pause();
+          audio.currentTime = 0;
+        }, 60000); // Musik berhenti setelah 30 detik
+      };
+
+      function pindahTombol(btn) {
+        const pesanContainer = document.getElementById("pesan-container");
+
+        if (clickCount >= 7) {
+          btn.classList.add("hilang");
+          pesanContainer.innerHTML = `
+          <p class="pesan-item animasi1">Pesan 1: Kamu keren banget Yakult! 🤩</p>
+          <p class="pesan-item animasi2">Pesan 2: Ini adalah sedikit Ucapaan untuk yang nambah tua 😜</p>
+          <p class="pesan-item animasi3">Pesan 3: Janga lupa istirahay ☕</p>
+          <p class="pesan-item animasi1">Pesan 4: Terima kasih yaa 💖</p>
+          <br><br>
+          <a href="isi-halaman/isi.html" class="tombol-lanjut">👉 Lanjut Ke Halaman Berikutnya</a>
+        `;
+          return;
+        }
+
+        clickCount++;
+
+        const container = document.querySelector(".container");
+        const gifContainer = document.querySelector(".gif-container");
+
+        const gifRect = gifContainer.getBoundingClientRect();
+        const btnWidth = btn.offsetWidth;
+        const btnHeight = btn.offsetHeight;
+
+        const x = Math.floor(Math.random() * (window.innerWidth - btnWidth));
+        const minY = gifRect.bottom + 30;
+        const maxY = window.innerHeight - btnHeight - 50;
+        const y = Math.floor(Math.random() * (maxY - minY) + minY);
+
+        btn.style.left = x + "px";
+        btn.style.top = y + "px";
+
+        const words = [
+          "Hehe 😜",
+          "Lagi dong!",
+          "Yang bener Dong!",
+          "Hampir kena !",
+          "Wkwkwk",
+          "Masih semangat?",
+          "Yah klik terakhir!",
+        ];
+
+        const word = document.createElement("div");
+        word.className = "floating-word";
+        word.innerText = words[clickCount - 1] || "Cukup ya 😆";
+        word.style.left = x + 40 + "px";
+        word.style.top = y - 30 + "px";
+        document.body.appendChild(word);
+        setTimeout(() => word.remove(), 1500);
+
+        if (clickCount === 7) {
+          btn.innerText = "Nice 😮‍💨";
+        }
+      }
+    </script>
+    <!-- KUCING BERJALAN -->
+    <div class="kucing-container">
+      <img src="walking.gif" alt="Kucing Berjalan" />
+    </div>
+  </body>
+</html>
